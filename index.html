@@ -99,9 +99,24 @@
                 <p>Conoce algunos de nuestros muebles.</p>
             </div>
 
+            <div class="buscador">
+                <input 
+                    type="text" 
+                    id="buscarProducto" 
+                    placeholder="Buscar un producto..."
+                >
+            </div>
+
+            <div class="filtros">
+                <button class="filtro activo" data-filtro="todos">Todos</button>
+                <button class="filtro" data-filtro="salas">Salas</button>
+                <button class="filtro" data-filtro="dormitorios">Dormitorios</button>
+                <button class="filtro" data-filtro="comedores">Comedores</button>
+            </div>
+
             <div class="productos-container">
 
-                <article class="producto">
+                <article class="producto" data-categoria="salas">
 
                     <img 
                         src="img/sofa.roma.jpg" 
@@ -121,7 +136,7 @@
                 </article>
 
 
-                <article class="producto">
+                <article class="producto" data-categoria="dormitorios">
 
                     <img 
                         src="img/cama-oslo.jpg" 
@@ -141,7 +156,7 @@
                 </article>
 
 
-                <article class="producto">
+                <article class="producto" data-categoria="comedores">
 
                     <img 
                         src="img/comedor-viena.jpg" 
@@ -161,6 +176,10 @@
                 </article>
 
             </div>
+
+            <p id="sinResultados" class="sin-resultados">
+                No se encontraron productos.
+            </p>
 
         </section>
 
