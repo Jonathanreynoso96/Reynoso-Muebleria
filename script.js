@@ -123,3 +123,76 @@ botonesFiltro.forEach(boton => {
 });
 
 buscador.addEventListener("input", filtrarProductos);
+
+const imagenesProducto = document.querySelectorAll(".imagen-producto");
+
+const modal = document.querySelector("#modalProducto");
+const modalImagen = document.querySelector("#modalImagen");
+const modalTitulo = document.querySelector("#modalTitulo");
+const modalDescripcion = document.querySelector("#modalDescripcion");
+const modalPrecio = document.querySelector("#modalPrecio");
+const modalWhatsApp = document.querySelector("#modalWhatsApp");
+const cerrarModal = document.querySelector("#cerrarModal");
+
+
+
+imagenesProducto.forEach(imagen => {
+
+    imagen.addEventListener("click", function() {
+
+        const producto = this.closest(".producto");
+
+        const titulo = producto.querySelector("h3").textContent;
+        const descripcion = producto.querySelector("p").textContent;
+        const precio = producto.querySelector(".precio").textContent;
+
+        modalImagen.src = this.src;
+        modalImagen.alt = this.alt;
+
+        modalTitulo.textContent = titulo;
+        modalDescripcion.textContent = descripcion;
+        modalPrecio.textContent = precio;
+
+
+        const mensaje = `Hola, quiero consultar por el ${titulo}.`;
+
+        const mensajeCodificado = encodeURIComponent(mensaje);
+
+        modalWhatsApp.href =
+            `https://wa.me/${telefonoWhatsApp}?text=${mensajeCodificado}`;
+
+
+        modal.classList.add("activo");
+
+    });
+
+});
+
+
+cerrarModal.addEventListener("click", function() {
+
+    modal.classList.remove("activo");
+
+});
+
+
+modal.addEventListener("click", function(event) {
+
+    if (event.target === modal) {
+
+        modal.classList.remove("activo");
+
+    }
+
+});
+
+
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+
+        modal.classList.remove("activo");
+
+    }
+
+});

@@ -624,3 +624,178 @@ footer {
 
     color: #777;
 }
+
+/* MODAL DE PRODUCTOS */
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.85);
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 1.5rem;
+
+    z-index: 2000;
+}
+
+.modal.activo {
+    display: flex;
+}
+
+
+/* CONTENIDO */
+
+.modal-contenido {
+    position: relative;
+
+    width: 100%;
+    max-width: 850px;
+
+    max-height: 90vh;
+
+    background-color: white;
+
+    border-radius: 15px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+
+/* IMAGEN */
+
+.modal-imagen {
+    width: 55%;
+
+    max-height: 90vh;
+
+    object-fit: cover;
+}
+
+
+/* INFORMACIÓN */
+
+.modal-info {
+    width: 45%;
+
+    padding: 3rem 2.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+.modal-info h2 {
+    font-size: 2rem;
+
+    margin-bottom: 1rem;
+}
+
+.modal-info p {
+    color: #666;
+
+    line-height: 1.6;
+
+    margin-bottom: 1.5rem;
+}
+
+.modal-precio {
+    font-size: 1.7rem;
+
+    font-weight: bold;
+
+    margin-bottom: 2rem;
+}
+
+
+/* BOTÓN WHATSAPP */
+
+.modal-whatsapp {
+    text-align: center;
+
+    text-decoration: none;
+}
+
+.modal-whatsapp i {
+    margin-right: 8px;
+}
+
+
+/* BOTÓN CERRAR */
+
+.modal-cerrar {
+    position: absolute;
+
+    top: 15px;
+    right: 20px;
+
+    width: 40px;
+    height: 40px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background-color: rgba(0, 0, 0, 0.6);
+
+    color: white;
+
+    font-size: 1.8rem;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.modal-cerrar:hover {
+    transform: scale(1.1);
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    .modal-contenido {
+        flex-direction: column;
+
+        max-height: 90vh;
+
+        overflow-y: auto;
+    }
+
+    .modal-imagen {
+        width: 100%;
+
+        height: 300px;
+    }
+
+    .modal-info {
+        width: 100%;
+
+        padding: 1.5rem;
+    }
+
+    .modal-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-precio {
+        font-size: 1.4rem;
+    }
+
+}

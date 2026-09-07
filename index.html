@@ -121,6 +121,7 @@
                     <img 
                         src="img/sofa.roma.jpg" 
                         alt="Sofá Roma"
+                        class="imagen-producto"
                     >
 
                     <div class="producto-info">
@@ -141,6 +142,7 @@
                     <img 
                         src="img/cama-oslo.jpg" 
                         alt="Cama Oslo"
+                        class="imagen-producto"
                     >
 
                     <div class="producto-info">
@@ -161,6 +163,7 @@
                     <img 
                         src="img/comedor-viena.jpg" 
                         alt="Comedor Viena"
+                        class="imagen-producto"
                     >
 
                     <div class="producto-info">
@@ -289,6 +292,49 @@
 <a href="#" class="whatsapp-float" aria-label="Contactar por WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
 </a>
+
+<div class="modal" id="modalProducto">
+
+    <div class="modal-contenido">
+
+        <button 
+            class="modal-cerrar" 
+            id="cerrarModal" 
+            aria-label="Cerrar"
+        >
+            &times;
+        </button>
+
+        <img 
+            src="" 
+            alt="" 
+            class="modal-imagen"
+            id="modalImagen"
+        >
+
+        <div class="modal-info">
+
+            <h2 id="modalTitulo"></h2>
+
+            <p id="modalDescripcion"></p>
+
+            <span class="modal-precio" id="modalPrecio"></span>
+
+            <a 
+                href="#" 
+                class="btn modal-whatsapp"
+                id="modalWhatsApp"
+                target="_blank"
+            >
+                <i class="fa-brands fa-whatsapp"></i>
+                Consultar por WhatsApp
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script src="script.js"></script>
 </body>
