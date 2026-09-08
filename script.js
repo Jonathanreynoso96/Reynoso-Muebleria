@@ -1,29 +1,6 @@
 const telefonoWhatsApp = "5493815571289";
 
-const botonesConsulta = document.querySelectorAll(".producto .btn");
 
-botonesConsulta.forEach(boton => {
-
-    boton.addEventListener("click", function(event) {
-
-        event.preventDefault();
-
-        const producto = this.closest(".producto");
-        const nombreProducto = producto.querySelector("h3").textContent;
-
-        const mensaje = `Hola, me interesa el ${nombreProducto}. ¿Podrían brindarme información sobre disponibilidad y precio?`;
-
-        const mensajeCodificado = encodeURIComponent(mensaje);
-
-        const telefono = telefonoWhatsApp;
-
-        const url = `https://wa.me/${telefonoWhatsApp}?text=${mensajeCodificado}`;
-
-        window.open(url, "_blank");
-
-        console.log(mensajeCodificado);
-
-    });
 
 const botonWhatsApp = document.querySelector(".btn-whatsapp");
 
@@ -60,7 +37,7 @@ whatsappFloat.addEventListener("click", function(event) {
     window.open(url, "_blank");
 
 });
-});
+
 
 const botonesFiltro = document.querySelectorAll(".filtro");
 const productos = document.querySelectorAll(".producto");
@@ -196,3 +173,260 @@ document.addEventListener("keydown", function(event) {
     }
 
 });
+
+const menuToggle = document.querySelector("#menuToggle");
+const navLinks = document.querySelector("#navLinks");
+
+menuToggle.addEventListener("click", function() {
+
+    navLinks.classList.toggle("activo");
+
+});
+
+navLinks.querySelectorAll("a").forEach(link => {
+
+    link.addEventListener("click", function() {
+
+        navLinks.classList.remove("activo");
+
+    });
+
+});
+
+// ============================
+// CARRITO DE COMPRAS
+// ============================
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+const carritoToggle = document.querySelector("#carritoToggle");
+const carritoPanel = document.querySelector("#carritoPanel");
+const cerrarCarrito = document.querySelector("#cerrarCarrito");
+const carritoItems = document.querySelector("#carritoItems");
+const contadorCarrito = document.querySelector("#contadorCarrito");
+const carritoTotal = document.querySelector("#carritoTotal");
+const vaciarCarrito = document.querySelector("#vaciarCarrito");
+const carritoWhatsApp = document.querySelector("#carritoWhatsApp");
+
+carritoToggle.addEventListener("click", function() {
+
+    carritoPanel.classList.add("activo");
+
+});
+
+
+cerrarCarrito.addEventListener("click", function() {
+
+    carritoPanel.classList.remove("activo");
+
+});
+
+document.querySelectorAll(".producto .btn-carrito").forEach(boton => {
+
+    boton.addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        const producto = this.closest(".producto");
+
+        const nombre = producto.querySelector("h3").textContent;
+        const precioTexto = producto.querySelector(".precio").textContent;
+        const imagen = producto.querySelector("img").src;
+
+        const precio = parseFloat(
+            precioTexto.replace("$", "").replace(",", "")
+        );
+
+        const productoExistente = carrito.find(
+            item => item.nombre === nombre
+        );
+
+        if (productoExistente) {
+
+            productoExistente.cantidad++;
+
+        } else {
+
+            carrito.push({
+                nombre: nombre,
+                precio: precio,
+                imagen: imagen,
+                cantidad: 1
+            });
+
+        }
+
+        guardarCarrito();
+
+        mostrarCarrito();
+
+        carritoPanel.classList.add("activo");
+
+    });
+
+});
+
+function mostrarCarrito() {
+
+    carritoItems.innerHTML = "";
+
+    let total = 0;
+    let cantidadTotal = 0;
+
+    if (carrito.length === 0) {
+
+        carritoItems.innerHTML = `
+            <p class="carrito-vacio">
+                Tu carrito está vacío.
+            </p>
+        `;
+
+    }
+
+    carrito.forEach((producto, indice) => {
+
+        const subtotal = producto.precio * producto.cantidad;
+
+        total += subtotal;
+
+        cantidadTotal += producto.cantidad;
+
+        carritoItems.innerHTML += `
+
+            <div class="carrito-item">
+
+                <img 
+                    src="${producto.imagen}" 
+                    alt="${producto.nombre}"
+                >
+
+                <div class="carrito-item-info">
+
+                    <h3>${producto.nombre}</h3>
+
+                    <p>
+                        $${producto.precio.toLocaleString("es-AR")}
+                    </p>
+
+                    <div class="cantidad-control">
+
+                        <button 
+                            onclick="cambiarCantidad(${indice}, -1)"
+                            aria-label="Disminuir cantidad"
+                        >
+                            −
+                        </button>
+
+                        <span>
+                            ${producto.cantidad}
+                        </span>
+
+                        <button 
+                            onclick="cambiarCantidad(${indice}, 1)"
+                            aria-label="Aumentar cantidad"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                    <strong>
+                        Subtotal:
+                        $${subtotal.toLocaleString("es-AR")}
+                    </strong>
+
+                </div>
+
+                <button 
+                    class="carrito-eliminar"
+                    onclick="eliminarProducto(${indice})"
+                    aria-label="Eliminar producto"
+                >
+                    🗑️
+                </button>
+
+            </div>
+
+        `;
+
+    });
+
+    contadorCarrito.textContent = cantidadTotal;
+
+    carritoTotal.textContent =
+        `$${total.toLocaleString("es-AR")}`;
+
+    actualizarWhatsApp();
+
+}
+
+function eliminarProducto(indice) {
+
+    carrito.splice(indice, 1);
+
+    guardarCarrito();
+
+    mostrarCarrito();
+
+}
+
+vaciarCarrito.addEventListener("click", function() {
+
+    carrito = [];
+
+    guardarCarrito();
+
+    mostrarCarrito();
+
+});
+
+function guardarCarrito() {
+
+    localStorage.setItem(
+        "carrito",
+        JSON.stringify(carrito)
+    );
+
+}
+
+function actualizarWhatsApp() {
+
+    let mensaje = "Hola, quiero consultar por:%0A%0A";
+
+    carrito.forEach(producto => {
+
+        mensaje +=
+            `• ${producto.nombre} x${producto.cantidad} - $${producto.precio * producto.cantidad}%0A`;
+
+    });
+
+    const total = carrito.reduce(
+        (suma, producto) =>
+            suma + producto.precio * producto.cantidad,
+        0
+    );
+
+    mensaje += `%0ATotal: $${total}`;
+
+    carritoWhatsApp.href =
+        `https://wa.me/${telefonoWhatsApp}?text=${mensaje}`;
+
+}
+
+mostrarCarrito();
+
+function cambiarCantidad(indice, cambio) {
+
+    carrito[indice].cantidad += cambio;
+
+    if (carrito[indice].cantidad <= 0) {
+
+        carrito.splice(indice, 1);
+
+    }
+
+    guardarCarrito();
+
+    mostrarCarrito();
+
+}

@@ -799,3 +799,310 @@ footer {
     }
 
 }
+
+/* MENU HAMBURGUESA */
+
+.menu-toggle {
+    display: none;
+
+    background: none;
+    border: none;
+
+    font-size: 1.8rem;
+
+    cursor: pointer;
+}
+
+
+/* VERSION MOVIL */
+
+@media (max-width: 768px) {
+
+    nav {
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+
+        top: 100%;
+        right: 0;
+
+        width: 220px;
+
+        background-color: white;
+
+        flex-direction: column;
+
+        padding: 1rem 0;
+
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+
+        display: none;
+    }
+
+    .nav-links.activo {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        display: block;
+
+        padding: 0.8rem 1.5rem;
+    }
+
+    .carrito-icono {
+        top: 10px;
+        right: 25px;
+    }
+
+    .logo {
+    padding-right: 60px;
+    }
+
+}
+
+/* CARRITO */
+
+.carrito-icono {
+    position: fixed;
+
+    top: 30px;
+    right: 25px;
+
+    z-index: 2500;
+}
+
+.carrito-icono button {
+    width: 50px;
+    height: 50px;
+
+    background-color: white;
+
+    border: none;
+
+    border-radius: 50%;
+
+    font-size: 1.3rem;
+
+    cursor: pointer;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+
+    position: relative;
+
+    transition: transform 0.2s ease;
+}
+
+.carrito-icono button:hover {
+    transform: scale(1.08);
+}
+
+#contadorCarrito {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+
+    background-color: #e63946;
+    color: white;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    font-size: 0.75rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* PANEL */
+
+.carrito-panel {
+    position: fixed;
+
+    top: 0;
+    right: -400px;
+
+    width: 380px;
+    max-width: 90%;
+
+    height: 100vh;
+
+    background-color: white;
+
+    z-index: 3000;
+
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-direction: column;
+
+    transition: right 0.3s ease;
+}
+
+.carrito-panel.activo {
+    right: 0;
+}
+
+
+/* HEADER */
+
+.carrito-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1.5rem;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.carrito-header button {
+    background: none;
+    border: none;
+
+    font-size: 2rem;
+
+    cursor: pointer;
+}
+
+
+/* PRODUCTOS */
+
+.carrito-items {
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 1rem;
+}
+
+.carrito-item {
+    display: flex;
+
+    gap: 1rem;
+
+    padding: 1rem 0;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.carrito-item img {
+    width: 80px;
+    height: 80px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+.carrito-item-info {
+    flex: 1;
+}
+
+.carrito-item-info h3 {
+    font-size: 1rem;
+
+    margin-bottom: 0.5rem;
+}
+
+.carrito-item-info p {
+    font-weight: bold;
+}
+
+.carrito-eliminar {
+    border: none;
+
+    background: none;
+
+    cursor: pointer;
+
+    font-size: 1.1rem;
+}
+
+
+/* FOOTER */
+
+.carrito-footer {
+    padding: 1.5rem;
+
+    border-top: 1px solid #ddd;
+}
+
+.carrito-total {
+    display: flex;
+
+    justify-content: space-between;
+
+    font-size: 1.2rem;
+
+    margin-bottom: 1rem;
+}
+
+.carrito-footer .btn {
+    width: 100%;
+
+    margin-top: 0.5rem;
+
+    text-align: center;
+}
+
+/* CONTROL DE CANTIDAD DEL CARRITO */
+
+.cantidad-control {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.8rem;
+
+    margin: 0.8rem 0;
+}
+
+.cantidad-control button {
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #ccc;
+
+    background-color: white;
+
+    border-radius: 5px;
+
+    font-size: 1.2rem;
+
+    cursor: pointer;
+}
+
+.cantidad-control button:hover {
+    background-color: #f2f2f2;
+}
+
+.cantidad-control span {
+    min-width: 25px;
+
+    text-align: center;
+
+    font-weight: bold;
+}
+
+.carrito-item-info strong {
+    display: block;
+
+    margin-top: 0.5rem;
+
+    font-size: 0.9rem;
+}
